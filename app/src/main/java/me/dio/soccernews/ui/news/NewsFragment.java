@@ -23,6 +23,7 @@ public class NewsFragment extends Fragment {
 
         binding = FragmentNewsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         binding.rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
             binding.rvNews.setAdapter(new NewsAdapter(news));
