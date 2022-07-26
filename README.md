@@ -3,3 +3,5 @@ Aplicativo de notícias sobre futebol feminino. Repositório organizado em difer
 
 1. Android Jetpack e Material Design: Criando Apps Nativos Poderosos
   - [release/android-jetpack-material-design-criando-apps-nativos-poderosos](https://github.com/carlenr/soccer-news-app/tree/release/android-jetpack-material-design-criando-apps-nativos-poderosos)
+2. Abstraindo domínio de apps Android nativos com Java
+  - [release/abstraindo-dominio-de-apps-android-nativos-com-java](https://github.com/carlenr/soccer-news-app/tree/release/abstraindo-dominio-de-apps-android-nativos-com-java)
