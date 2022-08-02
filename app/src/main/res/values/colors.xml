@@ -7,4 +7,6 @@
     <color name="secondary_color_700">#f4511e</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="favorite_inactive">#737373</color>
+
 </resources>

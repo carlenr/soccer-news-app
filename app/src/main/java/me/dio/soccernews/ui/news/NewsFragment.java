@@ -1,22 +1,26 @@
 package me.dio.soccernews.ui.news;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.room.Room;
 
+import me.dio.soccernews.MainActivity;
+import me.dio.soccernews.data.local.AppDatabase;
 import me.dio.soccernews.databinding.FragmentNewsBinding;
 import me.dio.soccernews.ui.adapters.NewsAdapter;
 
 public class NewsFragment extends Fragment {
 
     private FragmentNewsBinding binding;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         NewsViewModel newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
@@ -26,8 +30,29 @@ public class NewsFragment extends Fragment {
 
         binding.rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         newsViewModel.getNews().observe(getViewLifecycleOwner(), news -> {
-            binding.rvNews.setAdapter(new NewsAdapter(news));
+            binding.rvNews.setAdapter(new NewsAdapter(news, updatedNews -> {
+                MainActivity activity = (MainActivity) getActivity();
+                AsyncTask.execute(() -> {
+                    if(activity != null) {
+                        activity.getDb().newsDao().save(updatedNews);
+                    }
+                });
+            }));
         });
+        newsViewModel.getState().observe(getViewLifecycleOwner(), state -> {
+            switch (state) {
+                case DOING:
+                    //TODO: Iniciar SwipeRefreshLayout (loading).
+                    break;
+                case DONE:
+                    //TODO: Finalizar SwipeRefreshLayout (loading).
+                    break;
+                case ERROR:
+                    //TODO: Finalizar SwipeRefreshLayout (loading).
+                    //TODO: Mostrar um erro genérico.
+            }
+        });
+
         return root;
     }
 
